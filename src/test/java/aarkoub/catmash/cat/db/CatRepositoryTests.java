@@ -57,15 +57,11 @@ public class CatRepositoryTests {
         long id_1 = testEntityManager.persist(cat_1).getId();
         long id_2 = testEntityManager.persist(cat_2).getId();
 
-        List<Long> expectedCats = new ArrayList<>();
-        expectedCats.add(id_1);
-        expectedCats.add(id_2);
+        List<Cat> expectedCats = new ArrayList<>();
+        expectedCats.add(cat_1);
+        expectedCats.add(cat_2);
 
-        List<Long> retCats = new ArrayList<>();
-
-        List<Cat> cats = catRepository.getAllCats();
-        cats.forEach(c -> retCats.add(c.getId()));
-        Assertions.assertEquals(expectedCats, retCats);
+        Assertions.assertEquals(expectedCats, catRepository.getAllCats());
     }
 
 }
