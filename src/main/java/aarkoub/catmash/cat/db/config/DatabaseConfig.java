@@ -1,4 +1,4 @@
-package aarkoub.catmash;
+package aarkoub.catmash.cat.db.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

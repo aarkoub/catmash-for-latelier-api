@@ -7,7 +7,7 @@ import org.springframework.stereotype.*;
 
 @Controller
 @SpringBootApplication
-public class AppAPI {
+public class CatAPI {
 
 	@RequestMapping("/")
 	@ResponseBody
@@ -17,7 +17,7 @@ public class AppAPI {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(AppAPI.class, args);
+		SpringApplication.run(CatAPI.class, args);
 	}
 
 }
