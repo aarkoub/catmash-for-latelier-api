@@ -1,4 +1,4 @@
-package com.example.catmash;
+package aarkoub.catmash;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.*;
 
 @Controller
 @SpringBootApplication
-public class DemoApplication {
+public class AppAPI {
 
 	@RequestMapping("/")
 	@ResponseBody
@@ -17,7 +17,7 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(AppAPI.class, args);
 	}
 
 }

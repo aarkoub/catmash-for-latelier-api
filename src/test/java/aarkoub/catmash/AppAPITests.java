@@ -1,10 +1,10 @@
-package com.example.catmash;
+package aarkoub.catmash;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class AppAPITests {
 
 	@Test
 	void contextLoads() {
