@@ -1,17 +1,16 @@
 package aarkoub.catmash.cat.db;
 
 import aarkoub.catmash.cat.domain.Cat;
-import aarkoub.catmash.cat.domain.CatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @Component
-public class CatsRepositorySQL implements CatsService {
+public class CatRepositorySQL implements ICatRepository {
 
     @Autowired
-    CatsRepository repository;
+    ICatCRUDRepository repository;
 
     @Override
     public long addCat(Cat cat) {

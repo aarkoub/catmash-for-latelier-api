@@ -1,6 +1,5 @@
-package aarkoub.catmash.cat;
+package aarkoub.catmash.cat.db;
 
-import aarkoub.catmash.cat.db.CatsRepositorySQL;
 import aarkoub.catmash.cat.domain.Cat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,13 +22,13 @@ import java.util.List;
 @EnableJpaRepositories(basePackages = {"aarkoub.catmash"})
 @AutoConfigureTestEntityManager
 @Transactional
-public class CatsRepositoryTests {
+public class CatRepositoryTests {
 
     @Autowired
     private DataSource dataSource;
 
     @Autowired
-    private CatsRepositorySQL catsRepo = new CatsRepositorySQL();
+    private CatRepositorySQL catRepository = new CatRepositorySQL();
 
     @Autowired
     private TestEntityManager testEntityManager;
@@ -37,7 +36,7 @@ public class CatsRepositoryTests {
     @Test
     public void testAddCat() {
         Cat cat = new Cat("fake_url", 0);
-        long l = catsRepo.addCat(cat);
+        long l = catRepository.addCat(cat);
         Cat ret_cat = testEntityManager.find(Cat.class, l);
         Assertions.assertEquals(cat.getId(), ret_cat.getId());
     }
@@ -46,7 +45,7 @@ public class CatsRepositoryTests {
     public void testVoteForCat() throws Exception {
         Cat cat = new Cat("fake_url", 5);
         long id = testEntityManager.persist(cat).getId();
-        catsRepo.voteForCat(id);
+        catRepository.voteForCat(id);
         Cat ret_cat = testEntityManager.find(Cat.class, id);
         Assertions.assertEquals(6, ret_cat.getNbVotes());
     }
@@ -64,7 +63,7 @@ public class CatsRepositoryTests {
 
         List<Long> retCats = new ArrayList<>();
 
-        List<Cat> cats = catsRepo.getAllCats();
+        List<Cat> cats = catRepository.getAllCats();
         cats.forEach(c -> retCats.add(c.getId()));
         Assertions.assertEquals(expectedCats, retCats);
     }
