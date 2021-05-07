@@ -3,6 +3,7 @@ package aarkoub.catmash.cat.domain.service;
 import aarkoub.catmash.cat.db.CatRepositorySQL;
 import aarkoub.catmash.cat.db.ICatRepository;
 import aarkoub.catmash.cat.domain.Cat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Service
 public class CatService implements ICatService {
 
+    @Autowired
     ICatRepository catRepository;
 
     public CatService(){
