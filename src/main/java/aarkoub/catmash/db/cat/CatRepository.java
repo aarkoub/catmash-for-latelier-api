@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class CatRepositorySQL implements ICatRepository {
+public class CatRepository implements ICatRepository {
 
     @Autowired
     ICatCRUDRepository repository;

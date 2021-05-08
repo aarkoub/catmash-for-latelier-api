@@ -1,6 +1,5 @@
 package aarkoub.catmash.domain.cat.service;
 
-import aarkoub.catmash.db.cat.CatRepositorySQL;
 import aarkoub.catmash.db.cat.ICatRepository;
 import aarkoub.catmash.domain.cat.Cat;
 import org.springframework.beans.factory.annotation.Autowired;
