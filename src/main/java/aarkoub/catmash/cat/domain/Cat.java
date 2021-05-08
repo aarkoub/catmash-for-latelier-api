@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Cat {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
     private String pictureUrl;
     private int nbVotes;
@@ -19,8 +19,15 @@ public class Cat {
     }
 
     public Cat(String pictureUrl, int nbVotes){
+        this.id = 0;
         this.pictureUrl = pictureUrl;
         this.nbVotes = nbVotes;
+    }
+
+    public Cat(String pictureUrl){
+        this.id = 0;
+        this.pictureUrl = pictureUrl;
+        this.nbVotes = 0;
     }
 
     public Cat(){}
