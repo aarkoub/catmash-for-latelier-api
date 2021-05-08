@@ -1,7 +1,8 @@
-package aarkoub.catmash.cat.domain.service;
+package aarkoub.catmash.domain.cat.service;
 
-import aarkoub.catmash.cat.db.ICatRepository;
-import aarkoub.catmash.cat.domain.Cat;
+import aarkoub.catmash.db.cat.ICatRepository;
+import aarkoub.catmash.domain.cat.Cat;
+import aarkoub.catmash.domain.cat.service.CatService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

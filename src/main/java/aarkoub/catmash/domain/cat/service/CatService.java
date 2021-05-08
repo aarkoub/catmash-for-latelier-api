@@ -1,8 +1,8 @@
-package aarkoub.catmash.cat.domain.service;
+package aarkoub.catmash.domain.cat.service;
 
-import aarkoub.catmash.cat.db.CatRepositorySQL;
-import aarkoub.catmash.cat.db.ICatRepository;
-import aarkoub.catmash.cat.domain.Cat;
+import aarkoub.catmash.db.cat.CatRepositorySQL;
+import aarkoub.catmash.db.cat.ICatRepository;
+import aarkoub.catmash.domain.cat.Cat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,6 @@ public class CatService implements ICatService {
 
     @Autowired
     ICatRepository catRepository;
-
-    public CatService(){
-        this.catRepository = new CatRepositorySQL();
-    }
 
     public CatService(ICatRepository catRepository){
         this.catRepository = catRepository;

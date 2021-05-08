@@ -1,4 +1,4 @@
-package aarkoub.catmash.cat.domain;
+package aarkoub.catmash.domain.cat;
 
 import javax.persistence.*;
 

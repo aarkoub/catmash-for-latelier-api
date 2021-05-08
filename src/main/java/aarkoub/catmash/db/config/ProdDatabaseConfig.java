@@ -1,4 +1,4 @@
-package aarkoub.catmash.cat.db.config;
+package aarkoub.catmash.db.config;
 
 import com.zaxxer.hikari.*;
 import org.springframework.beans.factory.annotation.Value;

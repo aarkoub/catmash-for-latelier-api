@@ -1,6 +1,6 @@
-package aarkoub.catmash.cat.domain.service;
+package aarkoub.catmash.domain.cat.service;
 
-import aarkoub.catmash.cat.domain.Cat;
+import aarkoub.catmash.domain.cat.Cat;
 
 import java.util.List;
 

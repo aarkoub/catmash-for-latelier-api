@@ -1,7 +1,7 @@
-package aarkoub.catmash.cat.db.importation;
+package aarkoub.catmash.db.cat.importation;
 
-import aarkoub.catmash.cat.db.ICatRepository;
-import aarkoub.catmash.cat.domain.Cat;
+import aarkoub.catmash.db.cat.ICatRepository;
+import aarkoub.catmash.domain.cat.Cat;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Component
-@EnableJpaRepositories(basePackages = {"aarkoub.catmash"})
 public class CatDataLoader {
 
     @Autowired

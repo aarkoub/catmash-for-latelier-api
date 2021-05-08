@@ -1,6 +1,6 @@
-package aarkoub.catmash.cat.db;
+package aarkoub.catmash.db.cat;
 
-import aarkoub.catmash.cat.domain.Cat;
+import aarkoub.catmash.domain.cat.Cat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

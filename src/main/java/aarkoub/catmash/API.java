@@ -1,8 +1,8 @@
 package aarkoub.catmash;
 
-import aarkoub.catmash.cat.db.importation.CatDataLoader;
-import aarkoub.catmash.cat.domain.Cat;
-import aarkoub.catmash.cat.domain.service.ICatService;
+import aarkoub.catmash.db.cat.importation.CatDataLoader;
+import aarkoub.catmash.domain.cat.Cat;
+import aarkoub.catmash.domain.cat.service.ICatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @SpringBootApplication
-public class CatAPI {
+public class API {
 
     @Autowired
     ICatService catService;
@@ -38,7 +38,7 @@ public class CatAPI {
     }
 
     public static void main(String[] args) throws IOException {
-        SpringApplication.run(CatAPI.class, args);
+        SpringApplication.run(API.class, args);
     }
 
 }

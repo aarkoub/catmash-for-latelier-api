@@ -1,8 +1,5 @@
-package aarkoub.catmash.cat.db.importation;
+package aarkoub.catmash.db.cat.importation;
 
-import aarkoub.catmash.cat.db.CatRepositorySQL;
-import aarkoub.catmash.cat.db.ICatRepository;
-import aarkoub.catmash.cat.domain.Cat;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +8,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
-import javax.sql.DataSource;
 import java.io.IOException;
-import java.util.List;
 
 
 @SpringBootTest

@@ -1,6 +1,7 @@
-package aarkoub.catmash.cat.db;
+package aarkoub.catmash.db.cat;
 
-import aarkoub.catmash.cat.domain.Cat;
+import aarkoub.catmash.db.cat.ICatRepository;
+import aarkoub.catmash.domain.cat.Cat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -18,7 +18,6 @@ import java.util.List;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-@EnableJpaRepositories(basePackages = {"aarkoub.catmash"})
 @AutoConfigureTestEntityManager
 @Transactional
 public class CatRepositoryTests {
