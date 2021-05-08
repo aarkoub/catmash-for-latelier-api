@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +24,7 @@ import java.util.List;
 public class CatRepositoryTests {
 
     @Autowired
-    private DataSource dataSource;
-
-    @Autowired
-    private CatRepositorySQL catRepository = new CatRepositorySQL();
+    private ICatRepository catRepository ;
 
     @Autowired
     private TestEntityManager testEntityManager;
@@ -51,7 +47,7 @@ public class CatRepositoryTests {
     }
 
     @Test
-    public void testgetAllCats() {
+    public void testGetAllCats() {
         Cat cat_1 = new Cat("fake_url1", 0);
         Cat cat_2 = new Cat("fake_url2", 0);
         long id_1 = testEntityManager.persist(cat_1).getId();
