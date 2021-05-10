@@ -19,16 +19,16 @@ public class CatService implements ICatService {
 
     @Override
     public long addCat(Cat cat) {
-        return catRepository.addCat(cat);
+        return catRepository.add(cat);
     }
 
     @Override
     public Cat voteForCat(long id) throws Exception {
-        return catRepository.voteForCat(id);
+        return catRepository.vote(id);
     }
 
     @Override
     public List<Cat> getAllCats() {
-        return catRepository.getAllCats();
+        return catRepository.getAll();
     }
 }

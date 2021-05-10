@@ -7,5 +7,5 @@ import java.util.UUID;
 
 @Repository
 public interface IUserRepository {
-    UUID addUser();
+    UUID add();
 }

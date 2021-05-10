@@ -13,7 +13,7 @@ public class UserRepository implements IUserRepository {
     IUserCRUDRepository repository;
 
     @Override
-    public UUID addUser() {
+    public UUID add() {
         User user = new User();
         return repository.save(user).getId();
     }

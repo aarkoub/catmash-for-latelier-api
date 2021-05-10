@@ -13,12 +13,12 @@ public class CatRepository implements ICatRepository {
     ICatCRUDRepository repository;
 
     @Override
-    public long addCat(Cat cat) {
+    public long add(Cat cat) {
         return repository.save(cat).getId();
     }
 
     @Override
-    public Cat voteForCat(long id) throws Exception {
+    public Cat vote(long id) throws Exception {
         Optional<Cat> cat = repository.findById(id);
         if(cat.isEmpty()){
             throw new Exception("Database: Could find cat of id="+id);
@@ -28,7 +28,7 @@ public class CatRepository implements ICatRepository {
     }
 
     @Override
-    public List<Cat> getAllCats() {
+    public List<Cat> getAll() {
         Iterable<Cat> catsIterable = repository.findAll();
         List<Cat> cats = new ArrayList<>();
         catsIterable.forEach(cat -> cats.add(cat));

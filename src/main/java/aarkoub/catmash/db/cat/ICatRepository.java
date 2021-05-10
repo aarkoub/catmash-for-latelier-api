@@ -8,8 +8,8 @@ import java.util.List;
 @Repository
 public interface ICatRepository {
 
-    long addCat(Cat cat);
-    Cat voteForCat(long id) throws Exception;
-    List<Cat> getAllCats();
+    long add(Cat cat);
+    Cat vote(long id) throws Exception;
+    List<Cat> getAll();
 
 }

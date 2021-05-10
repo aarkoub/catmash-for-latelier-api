@@ -8,7 +8,7 @@ public class Cat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long id;
+    private long id;
     private String pictureUrl;
     private int nbVotes;
 

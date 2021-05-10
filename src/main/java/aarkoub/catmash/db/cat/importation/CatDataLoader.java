@@ -5,7 +5,6 @@ import aarkoub.catmash.domain.cat.Cat;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class CatDataLoader {
         for(int i=0; i<ja.length(); i++){
             JSONObject jCat = (JSONObject) ja.get(i);
             String url = (String) jCat.get("url");
-            repository.addCat(new Cat(url));
+            repository.add(new Cat(url));
         }
         System.out.println("loading data process has finished");
     }

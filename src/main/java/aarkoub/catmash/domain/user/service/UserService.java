@@ -14,6 +14,6 @@ public class UserService implements IUserService {
 
     @Override
     public UUID addUser() {
-        return userRepository.addUser();
+        return userRepository.add();
     }
 }

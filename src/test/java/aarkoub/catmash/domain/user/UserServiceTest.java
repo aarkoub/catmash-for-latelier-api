@@ -24,7 +24,7 @@ public class UserServiceTest {
     @Test
     public void testAddUser(){
         UUID id = UUID.randomUUID();
-        Mockito.when(mockRepository.addUser()).thenReturn(id);
+        Mockito.when(mockRepository.add()).thenReturn(id);
         Assertions.assertEquals(id, userService.addUser());
     }
 

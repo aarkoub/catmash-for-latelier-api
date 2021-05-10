@@ -1,6 +1,5 @@
 package aarkoub.catmash.db.cat;
 
-import aarkoub.catmash.db.cat.ICatRepository;
 import aarkoub.catmash.domain.cat.Cat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,7 @@ public class CatRepositoryTests {
     @Test
     public void testAddCat() {
         Cat cat = new Cat("fake_url", 0);
-        long l = catRepository.addCat(cat);
+        long l = catRepository.add(cat);
         Cat ret_cat = testEntityManager.find(Cat.class, l);
         Assertions.assertEquals(cat.getId(), ret_cat.getId());
     }
@@ -40,7 +39,7 @@ public class CatRepositoryTests {
     public void testVoteForCat() throws Exception {
         Cat cat = new Cat("fake_url", 5);
         long id = testEntityManager.persist(cat).getId();
-        catRepository.voteForCat(id);
+        catRepository.vote(id);
         Cat ret_cat = testEntityManager.find(Cat.class, id);
         Assertions.assertEquals(6, ret_cat.getNbVotes());
     }
@@ -56,7 +55,7 @@ public class CatRepositoryTests {
         expectedCats.add(cat_1);
         expectedCats.add(cat_2);
 
-        Assertions.assertEquals(expectedCats, catRepository.getAllCats());
+        Assertions.assertEquals(expectedCats, catRepository.getAll());
     }
 
 }
