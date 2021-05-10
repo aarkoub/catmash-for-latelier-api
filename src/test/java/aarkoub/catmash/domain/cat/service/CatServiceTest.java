@@ -26,7 +26,7 @@ public class CatServiceTest {
 
         Cat cat = new Cat(2L, "fake_url", 5);
         Mockito.when(mockRepository.add(cat)).thenReturn(1L);
-        Assertions.assertEquals(1, catService.addCat(cat));
+        Assertions.assertEquals(1, catService.add(cat));
     }
 
     @Test
@@ -35,14 +35,14 @@ public class CatServiceTest {
         cats.add(new Cat(1, "fake_url", 5));
         cats.add(new Cat(2, "fake_url", 5));
         Mockito.when(mockRepository.getAll()).thenReturn(cats);
-        Assertions.assertEquals(cats, catService.getAllCats());
+        Assertions.assertEquals(cats, catService.getAll());
     }
 
     @Test
     public void testVote() throws Exception {
         Cat cat = new Cat(1, "fake_url", 5);
-        Mockito.when(mockRepository.vote(2)).thenReturn(cat);
-        Assertions.assertEquals(5, catService.voteForCat(2).getNbVotes());
+        Mockito.when(mockRepository.increaseVote(2)).thenReturn(cat);
+        Assertions.assertEquals(5, catService.increaseVote(2).getNbVotes());
     }
 
 }

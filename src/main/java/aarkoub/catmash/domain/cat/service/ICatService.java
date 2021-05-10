@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface ICatService {
 
-    long addCat(Cat cat);
-    Cat voteForCat(long id) throws Exception;
-    List<Cat> getAllCats();
+    long add(Cat cat);
+    Cat increaseVote(long id) throws Exception;
+    Cat decreaseVote(long id) throws Exception;
+    List<Cat> getAll();
 
 }

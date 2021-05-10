@@ -9,7 +9,8 @@ import java.util.List;
 public interface ICatRepository {
 
     long add(Cat cat);
-    Cat vote(long id) throws Exception;
+    Cat increaseVote(long id) throws Exception;
+    Cat decreaseVote(long id) throws Exception;
     List<Cat> getAll();
 
 }

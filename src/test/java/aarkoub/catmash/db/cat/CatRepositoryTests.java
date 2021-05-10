@@ -28,7 +28,7 @@ public class CatRepositoryTests {
     private TestEntityManager testEntityManager;
 
     @Test
-    public void test() {
+    public void testAdd() {
         Cat cat = new Cat("fake_url", 0);
         long l = catRepository.add(cat);
         Cat ret_cat = testEntityManager.find(Cat.class, l);
@@ -36,12 +36,21 @@ public class CatRepositoryTests {
     }
 
     @Test
-    public void testVote() throws Exception {
+    public void testIncreaseVote() throws Exception {
         Cat cat = new Cat("fake_url", 5);
         long id = testEntityManager.persist(cat).getId();
-        catRepository.vote(id);
+        catRepository.increaseVote(id);
         Cat ret_cat = testEntityManager.find(Cat.class, id);
         Assertions.assertEquals(6, ret_cat.getNbVotes());
+    }
+
+    @Test
+    public void testDecreaseVote() throws Exception {
+        Cat cat = new Cat("fake_url", 5);
+        long id = testEntityManager.persist(cat).getId();
+        catRepository.decreaseVote(id);
+        Cat ret_cat = testEntityManager.find(Cat.class, id);
+        Assertions.assertEquals(4, ret_cat.getNbVotes());
     }
 
     @Test

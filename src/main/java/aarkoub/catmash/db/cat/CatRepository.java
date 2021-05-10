@@ -18,12 +18,23 @@ public class CatRepository implements ICatRepository {
     }
 
     @Override
-    public Cat vote(long id) throws Exception {
+    public Cat increaseVote(long id) throws Exception {
         Optional<Cat> cat = repository.findById(id);
         if(cat.isEmpty()){
             throw new Exception("Database: Could find cat of id="+id);
         }
         repository.updateCatVotes(id, cat.get().getNbVotes()+1);
+        return repository.findById(id).get();
+    }
+
+    @Override
+    public Cat decreaseVote(long id) throws Exception {
+        Optional<Cat> cat = repository.findById(id);
+        if(cat.isEmpty()){
+            throw new Exception("Database: Could find cat of id="+id);
+        }
+        assert(cat.get().getNbVotes()>0);
+        repository.updateCatVotes(id, cat.get().getNbVotes()-1);
         return repository.findById(id).get();
     }
 
