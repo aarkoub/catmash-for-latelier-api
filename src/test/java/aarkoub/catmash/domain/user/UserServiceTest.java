@@ -22,7 +22,7 @@ public class UserServiceTest {
     IUserService userService;
 
     @Test
-    public void testAddUser(){
+    public void testAdd(){
         UUID id = UUID.randomUUID();
         Mockito.when(mockRepository.add()).thenReturn(id);
         Assertions.assertEquals(id, userService.addUser());

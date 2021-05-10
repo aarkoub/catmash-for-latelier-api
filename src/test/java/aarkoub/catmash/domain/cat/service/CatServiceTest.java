@@ -22,7 +22,7 @@ public class CatServiceTest {
     ICatService catService ;
 
     @Test
-    public void testAddCat(){
+    public void testAdd(){
 
         Cat cat = new Cat(2L, "fake_url", 5);
         Mockito.when(mockRepository.add(cat)).thenReturn(1L);
@@ -30,7 +30,7 @@ public class CatServiceTest {
     }
 
     @Test
-    public void testGetAllCats(){
+    public void testGetAll(){
         List<Cat> cats = new ArrayList<>();
         cats.add(new Cat(1, "fake_url", 5));
         cats.add(new Cat(2, "fake_url", 5));
@@ -39,7 +39,7 @@ public class CatServiceTest {
     }
 
     @Test
-    public void testVoteForCat() throws Exception {
+    public void testVote() throws Exception {
         Cat cat = new Cat(1, "fake_url", 5);
         Mockito.when(mockRepository.vote(2)).thenReturn(cat);
         Assertions.assertEquals(5, catService.voteForCat(2).getNbVotes());

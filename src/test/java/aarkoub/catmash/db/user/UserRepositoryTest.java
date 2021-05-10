@@ -25,7 +25,7 @@ public class UserRepositoryTest {
     private TestEntityManager testEntityManager;
 
     @Test
-    public void addUserTest(){
+    public void add(){
         userRepository.add();
         Query q = testEntityManager.getEntityManager().createNativeQuery("select * from user");
         Assertions.assertEquals(1,q.getResultList().size());
