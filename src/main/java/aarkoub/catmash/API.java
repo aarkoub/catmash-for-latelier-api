@@ -29,7 +29,7 @@ public class API {
 
     @GetMapping("/cats")
     List<Cat> getAllCats() {
-        return catService.getAllCats();
+        return catService.getAll();
     }
 
     @RequestMapping("/load")
