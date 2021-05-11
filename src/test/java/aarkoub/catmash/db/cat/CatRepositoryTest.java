@@ -19,7 +19,7 @@ import java.util.List;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @AutoConfigureTestEntityManager
 @Transactional
-public class CatRepositoryTests {
+public class CatRepositoryTest {
 
     @Autowired
     private ICatRepository catRepository ;
