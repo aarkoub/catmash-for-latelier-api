@@ -7,5 +7,6 @@ import java.util.UUID;
 
 @Repository
 public interface IUserRepository {
-    UUID add();
+    User add();
+    User find(UUID id) throws UserNotFoundException;
 }
