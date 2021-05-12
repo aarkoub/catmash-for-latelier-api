@@ -130,11 +130,13 @@ public class CatMatch {
             return true;
         if (o instanceof CatMatch) {
             CatMatch cm = (CatMatch) o;
-            if (cm.getUser().getId() == user.getId() &&
-                    cm.getCat1().getId() == cat1.getId() &&
-                    cm.getCat2().getId() == cat2.getId() &&
-                    cm.getCatVoted().getId() == catVoted.getId())
-                return true;
+            if (cm.getUser() == user &&
+                    cm.getCat1() == cat1 &&
+                    cm.getCat2() == cat2) {
+                if( (cm.getCatVoted()==null && catVoted==null) ||
+                        (cm.getCatVoted().getId() == catVoted.getId()))
+                    return true;
+            }
         }
         return false;
     }

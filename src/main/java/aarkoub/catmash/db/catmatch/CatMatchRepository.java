@@ -39,7 +39,8 @@ public class CatMatchRepository implements ICatMatchRepository {
             throw new CatMatchNotFoundException("Couldn't find cat match of id user_id=" + userId +
                     ", cat_id_1=" + catId1 +", cat_id_2="+ catId2);
         CatMatch cm = resultQuery.get();
-        assert(resultQuery.get().getCatVoted().getId()!=catIdVoted);
+        if(cm.getCatVoted()!=null)
+            assert(resultQuery.get().getCatVoted().getId()!=catIdVoted);
         repository.updateCatIdVoted(userId, catId1, catId2, catIdVoted);
         return repository.findById(primaryKey).get();
     }

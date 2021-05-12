@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootTest
@@ -43,7 +45,8 @@ public class CatMatchServiceTest {
         User user = new User(UUID.randomUUID());
         Cat cat1 = new Cat(1, "fakeurl", 1);
         Cat cat2 = new Cat(2, "fakeurl", 0);
-        CatMatch cm = new CatMatch(user, cat1, cat2);
+        CatMatch cm = new CatMatch(user, cat1, cat2, cat1);
+        Mockito.when(catMatchMockRepository.find(user.getId(), cat1.getId(), cat2.getId())).thenReturn(cm);
         Mockito.when(catMatchMockRepository.changeVote(user.getId(), cat1.getId(), cat2.getId(), cat2.getId())).thenReturn(cm);
         Mockito.when(catMockRepository.increaseVote(cat2.getId())).thenAnswer(invocation -> {
             cat2.setNbVotes(1);
@@ -57,6 +60,27 @@ public class CatMatchServiceTest {
         Assertions.assertEquals(0, cat1.getNbVotes());
         Assertions.assertEquals(1, cat2.getNbVotes());
         
+    }
+
+    @Test
+    public void testGenerateMatch() throws CatMatchNotFoundException {
+
+        Cat cat1 = new Cat(1L, "fakeurl", 4);
+        Cat cat2 = new Cat(2L, "fakeurl", 0);
+        List<Cat> cats = new ArrayList<>();
+        cats.add(cat1);
+        cats.add(cat2);
+        User user = new User(UUID.randomUUID());
+        Mockito.when(catMockRepository.getAll()).thenReturn(cats);
+
+        Mockito.when(catMatchMockRepository.find(user.getId(), cat1.getId(), cat2.getId())).thenThrow(CatMatchNotFoundException.class);
+        Mockito.when(catMatchMockRepository.add(user.getId(), cat1.getId(), cat2.getId())).thenReturn(new CatMatch(user, cat1, cat2, null));
+
+        Mockito.when(catMatchMockRepository.find(user.getId(), cat2.getId(), cat1.getId())).thenThrow(CatMatchNotFoundException.class);
+        Mockito.when(catMatchMockRepository.add(user.getId(), cat2.getId(), cat1.getId())).thenReturn(new CatMatch(user, cat1, cat2, null));
+
+        CatMatch resMatch = catMatchService.generateMatch(user.getId());
+        Assertions.assertEquals(new CatMatch(user, cat1, cat2, null), resMatch);
     }
 
 }
