@@ -13,7 +13,7 @@ public interface ICatMatchService {
 
     CatMatch retrieve(UUID userId, long catId1, long catId2) throws UserNotFoundException, CatNotFoundException;
     CatMatch changeVote(UUID userId, long catId1, long catId2, long catIdVoted) throws CatMatchNotFoundException,
-            CatNotFoundException;
+            CatNotFoundException, UserNotFoundException;
     CatMatch generateMatch(UUID userId) throws UserNotFoundException;
 
 }

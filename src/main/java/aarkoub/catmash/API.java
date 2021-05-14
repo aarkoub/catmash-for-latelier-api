@@ -92,6 +92,8 @@ public class API {
                     +catIds.get("catId1")+", "+catIds.get("catId2")+"}not found");
         } catch (CatNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -101,7 +103,7 @@ public class API {
         response.addCookie(new Cookie("userId", userService.retrieveUser(getUserId(request)).getId().toString()));
     }
 
-    @RequestMapping("/loadCatsFromRessources")
+    @RequestMapping("/loadCatsFromResources")
     void loadData() throws IOException {
         catDataLoader.importCatsFromJSONToDatabase("src/main/resources/db/importation/cats.json");
     }

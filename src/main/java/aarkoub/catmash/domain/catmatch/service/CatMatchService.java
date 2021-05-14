@@ -32,6 +32,8 @@ public class CatMatchService implements ICatMatchService {
     @Override
     public CatMatch retrieve(UUID userId, long catId1, long catId2)
             throws UserNotFoundException, CatNotFoundException {
+        if(userId==null)
+            throw new UserNotFoundException("user id is equal to null");
         try {
             return catMatchRepository.find(userId, catId1, catId2);
         } catch (CatMatchNotFoundException e) {
@@ -46,7 +48,11 @@ public class CatMatchService implements ICatMatchService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CatMatch changeVote(UUID userId, long catId1, long catId2, long catIdVoted)
-            throws CatMatchNotFoundException, CatNotFoundException {
+            throws CatMatchNotFoundException, CatNotFoundException, UserNotFoundException {
+
+        if(userId==null)
+            throw new UserNotFoundException("user id is equal to null");
+
         CatMatch match = catMatchRepository.find(userId, catId1, catId2);
         catMatchRepository.changeVote(userId, catId1, catId2, catIdVoted);
         catRepository.increaseVote(catIdVoted);
@@ -58,6 +64,9 @@ public class CatMatchService implements ICatMatchService {
 
     @Override
     public CatMatch generateMatch(UUID userId) throws UserNotFoundException {
+
+        if(userId==null)
+            throw new UserNotFoundException("user id is equal to null");
 
         User user = userRepository.find(userId);
 
