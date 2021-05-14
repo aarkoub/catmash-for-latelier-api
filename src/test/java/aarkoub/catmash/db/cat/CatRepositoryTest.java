@@ -22,7 +22,7 @@ import java.util.List;
 public class CatRepositoryTest {
 
     @Autowired
-    private ICatRepository catRepository ;
+    private ICatRepository catRepository;
 
     @Autowired
     private TestEntityManager testEntityManager;
@@ -54,7 +54,7 @@ public class CatRepositoryTest {
     }
 
     @Test
-    public void testGet() {
+    public void testGetAll() {
         Cat cat_1 = new Cat("fake_url1", 0);
         Cat cat_2 = new Cat("fake_url2", 0);
         long id_1 = testEntityManager.persist(cat_1).getId();
@@ -65,6 +65,14 @@ public class CatRepositoryTest {
         expectedCats.add(cat_2);
 
         Assertions.assertEquals(expectedCats, catRepository.getAll());
+    }
+
+    @Test
+    public void testFind() throws CatNotFoundException {
+        Cat cat = testEntityManager.persist(new Cat("fake_url", 5));
+        testEntityManager.flush();
+        Assertions.assertEquals(cat.getId(), catRepository.find(cat.getId()).getId());
+        Assertions.assertThrows(CatNotFoundException.class, () -> catRepository.find(2));
     }
 
 }

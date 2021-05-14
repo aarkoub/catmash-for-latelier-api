@@ -1,6 +1,7 @@
 package aarkoub.catmash;
 
 import aarkoub.catmash.db.cat.importation.CatDataLoader;
+import aarkoub.catmash.db.user.UserNotFoundException;
 import aarkoub.catmash.domain.cat.Cat;
 import aarkoub.catmash.domain.cat.service.ICatService;
 import aarkoub.catmash.domain.catmatch.CatMatch;
@@ -66,7 +67,7 @@ public class API {
 
     @GetMapping("/cats/match")
     @ResponseBody
-    CatMatch generateCatMatch(HttpServletRequest request){
+    CatMatch generateCatMatch(HttpServletRequest request) throws UserNotFoundException {
         return catMatchService.generateMatch(getUserId(request));
     }
 

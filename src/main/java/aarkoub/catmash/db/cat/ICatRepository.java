@@ -12,5 +12,5 @@ public interface ICatRepository {
     Cat increaseVote(long id) throws Exception;
     Cat decreaseVote(long id) throws Exception;
     List<Cat> getAll();
-
+    Cat find(long id) throws CatNotFoundException;
 }

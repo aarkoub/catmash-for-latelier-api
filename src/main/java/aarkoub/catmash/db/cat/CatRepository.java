@@ -45,4 +45,13 @@ public class CatRepository implements ICatRepository {
         catsIterable.forEach(cat -> cats.add(cat));
         return cats;
     }
+
+    @Override
+    public Cat find(long id) throws CatNotFoundException {
+        Optional<Cat> c = repository.findById(id);
+        if(c.isEmpty()){
+            throw (new CatNotFoundException("Can't find cat of id="+id));
+        }
+        return c.get();
+    }
 }

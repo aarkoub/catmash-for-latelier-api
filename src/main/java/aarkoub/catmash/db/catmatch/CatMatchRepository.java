@@ -16,9 +16,8 @@ public class CatMatchRepository implements ICatMatchRepository {
     ICatMatchCRUDRepository repository;
 
     @Override
-    public CatMatch add(UUID userId, long catId1, long catId2) {
-        CatMatch catMatch = new CatMatch(new User(userId), new Cat(catId1, null, 0),
-                new Cat(catId2, null, 0));
+    public CatMatch add(User user, Cat cat1, Cat cat2) {
+        CatMatch catMatch = new CatMatch(user, cat1, cat2);
         return repository.save(catMatch);
     }
 

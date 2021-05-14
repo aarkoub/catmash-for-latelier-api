@@ -1,10 +1,14 @@
 package aarkoub.catmash.domain.catmatch.service;
 
+import aarkoub.catmash.db.cat.CatNotFoundException;
 import aarkoub.catmash.db.cat.ICatRepository;
 import aarkoub.catmash.db.catmatch.CatMatchNotFoundException;
 import aarkoub.catmash.db.catmatch.ICatMatchRepository;
+import aarkoub.catmash.db.user.IUserRepository;
+import aarkoub.catmash.db.user.UserNotFoundException;
 import aarkoub.catmash.domain.cat.Cat;
 import aarkoub.catmash.domain.catmatch.CatMatch;
+import aarkoub.catmash.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +26,18 @@ public class CatMatchService implements ICatMatchService {
     @Autowired
     private ICatRepository catRepository;
 
+    @Autowired
+    private IUserRepository userRepository;
+
     @Override
-    public CatMatch retrieve(UUID userId, long catId1, long catId2) {
+    public CatMatch retrieve(UUID userId, long catId1, long catId2) throws UserNotFoundException, CatNotFoundException {
         try {
             return catMatchRepository.find(userId, catId1, catId2);
         } catch (CatMatchNotFoundException e) {
-            return catMatchRepository.add(userId, catId1, catId2);
+            Cat cat1 = catRepository.find(catId1);
+            Cat cat2 = catRepository.find(catId2);
+            User user = userRepository.find(userId);
+            return catMatchRepository.add(user, cat1, cat2);
         }
 
     }
@@ -46,7 +56,7 @@ public class CatMatchService implements ICatMatchService {
     }
 
     @Override
-    public CatMatch generateMatch(UUID userId) {
+    public CatMatch generateMatch(UUID userId) throws UserNotFoundException {
 
         List<Cat> cats = catRepository.getAll();
         int nbCats = cats.size();
@@ -60,7 +70,8 @@ public class CatMatchService implements ICatMatchService {
         try {
             match = catMatchRepository.find(userId, cat1.getId(), cat2.getId());
         } catch (CatMatchNotFoundException e) {
-            match = catMatchRepository.add(userId, cat1.getId(), cat2.getId());
+            User user = userRepository.find(userId);
+            match = catMatchRepository.add(user, cat1, cat2);
         }
         return match;
     }

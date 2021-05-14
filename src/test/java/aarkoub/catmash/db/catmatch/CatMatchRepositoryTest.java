@@ -40,7 +40,7 @@ public class CatMatchRepositoryTest {
         User user = testEntityManager.persist(new User());
         Cat cat_1 = testEntityManager.persist(new Cat("fake_url_1"));
         Cat cat_2  = testEntityManager.persist(new Cat("fake_url_2"));
-        catMatchRepository.add(user.getId(), cat_1.getId(), cat_2.getId());
+        catMatchRepository.add(user, cat_1, cat_2);
         Query q = testEntityManager.getEntityManager().createNativeQuery("select * from cat_match");
         Assertions.assertEquals(1,q.getResultList().size());
     }

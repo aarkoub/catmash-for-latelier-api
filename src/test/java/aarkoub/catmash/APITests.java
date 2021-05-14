@@ -67,16 +67,18 @@ class APITests {
     @Test
     void generateMatch() throws Exception {
 
-        testEntityManager.persist(new Cat("fake_url", 5));
-        testEntityManager.persist(new Cat("fake_url", 3));
+        Cat cat1 = testEntityManager.persist(new Cat("fake_url", 5));
+        Cat cat2 = testEntityManager.persist(new Cat("fake_url", 3));
         UUID id = testEntityManager.persist(new User()).getId();
         Cookie cookie = new Cookie("userId", id.toString());
 
         mockMvc.perform(get("/cats/match").cookie(cookie))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.user.id", is(id.toString())))
-                .andExpect(jsonPath("$.cat1.id", anyOf(is(1), is(2))))
-                .andExpect(jsonPath("$.cat2.id", anyOf(is(1), is(2))))
+                .andExpect(jsonPath("$.cat1.id", anyOf(is(Integer.parseInt(Long.toString(cat1.getId())))
+                        , is(Integer.parseInt(Long.toString(cat2.getId()))))))
+                .andExpect(jsonPath("$.cat2.id", anyOf(is(Integer.parseInt(Long.toString(cat1.getId())))
+                        , is(Integer.parseInt(Long.toString(cat2.getId()))))))
                 .andExpect(jsonPath("$.catVoted", nullValue()));
     }
 

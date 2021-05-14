@@ -1,8 +1,11 @@
 package aarkoub.catmash.domain.catmatch.service;
 
+import aarkoub.catmash.db.cat.CatNotFoundException;
 import aarkoub.catmash.db.cat.ICatRepository;
 import aarkoub.catmash.db.catmatch.CatMatchNotFoundException;
 import aarkoub.catmash.db.catmatch.ICatMatchRepository;
+import aarkoub.catmash.db.user.IUserRepository;
+import aarkoub.catmash.db.user.UserNotFoundException;
 import aarkoub.catmash.domain.cat.Cat;
 import aarkoub.catmash.domain.catmatch.CatMatch;
 import aarkoub.catmash.domain.user.User;
@@ -22,6 +25,9 @@ public class CatMatchServiceTest {
 
     @MockBean
     ICatMatchRepository catMatchMockRepository;
+
+    @MockBean
+    IUserRepository userMockRepository;
     
     @MockBean
     ICatRepository catMockRepository;
@@ -30,13 +36,16 @@ public class CatMatchServiceTest {
     ICatMatchService catMatchService ;
 
     @Test
-    public void testRetrive() throws CatMatchNotFoundException {
+    public void testRetrieve() throws CatMatchNotFoundException, UserNotFoundException, CatNotFoundException {
         User user = new User(UUID.randomUUID());
         Cat cat1 = new Cat(1, "fakeurl", 0);
         Cat cat2 = new Cat(2, "fakeurl", 0);
         CatMatch cm = new CatMatch(user, cat1, cat2);
+        Mockito.when(userMockRepository.find(user.getId())).thenReturn(user);
+        Mockito.when(catMockRepository.find(cat1.getId())).thenReturn(cat1);
+        Mockito.when(catMockRepository.find(cat2.getId())).thenReturn(cat2);
         Mockito.when(catMatchMockRepository.find(user.getId(), cat1.getId(), cat2.getId())).thenThrow(new CatMatchNotFoundException("mock"));
-        Mockito.when(catMatchMockRepository.add(user.getId(), cat1.getId(), cat2.getId())).thenReturn(cm);
+        Mockito.when(catMatchMockRepository.add(user, cat1, cat2)).thenReturn(cm);
         Assertions.assertEquals(cm, catMatchService.retrieve(user.getId(), cat1.getId(), cat2.getId()));
     }
 
@@ -63,7 +72,7 @@ public class CatMatchServiceTest {
     }
 
     @Test
-    public void testGenerateMatch() throws CatMatchNotFoundException {
+    public void testGenerateMatch() throws CatMatchNotFoundException, UserNotFoundException {
 
         Cat cat1 = new Cat(1L, "fakeurl", 4);
         Cat cat2 = new Cat(2L, "fakeurl", 0);
@@ -73,11 +82,13 @@ public class CatMatchServiceTest {
         User user = new User(UUID.randomUUID());
         Mockito.when(catMockRepository.getAll()).thenReturn(cats);
 
+        Mockito.when(userMockRepository.find(user.getId())).thenReturn(user);
+
         Mockito.when(catMatchMockRepository.find(user.getId(), cat1.getId(), cat2.getId())).thenThrow(CatMatchNotFoundException.class);
-        Mockito.when(catMatchMockRepository.add(user.getId(), cat1.getId(), cat2.getId())).thenReturn(new CatMatch(user, cat1, cat2, null));
+        Mockito.when(catMatchMockRepository.add(user, cat1, cat2)).thenReturn(new CatMatch(user, cat1, cat2, null));
 
         Mockito.when(catMatchMockRepository.find(user.getId(), cat2.getId(), cat1.getId())).thenThrow(CatMatchNotFoundException.class);
-        Mockito.when(catMatchMockRepository.add(user.getId(), cat2.getId(), cat1.getId())).thenReturn(new CatMatch(user, cat1, cat2, null));
+        Mockito.when(catMatchMockRepository.add(user, cat2, cat1)).thenReturn(new CatMatch(user, cat1, cat2, null));
 
         CatMatch resMatch = catMatchService.generateMatch(user.getId());
         Assertions.assertEquals(new CatMatch(user, cat1, cat2, null), resMatch);
