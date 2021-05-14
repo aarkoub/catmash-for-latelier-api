@@ -9,8 +9,8 @@ import java.util.List;
 public interface ICatRepository {
 
     long add(Cat cat);
-    Cat increaseVote(long id) throws Exception;
-    Cat decreaseVote(long id) throws Exception;
+    Cat increaseVote(long id) throws CatNotFoundException;
+    Cat decreaseVote(long id) throws CatNotFoundException;
     List<Cat> getAll();
     Cat find(long id) throws CatNotFoundException;
 }

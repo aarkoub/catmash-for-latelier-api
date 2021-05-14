@@ -1,17 +1,22 @@
 package aarkoub.catmash;
 
+import aarkoub.catmash.db.cat.CatNotFoundException;
 import aarkoub.catmash.db.cat.importation.CatDataLoader;
+import aarkoub.catmash.db.catmatch.CatMatchNotFoundException;
 import aarkoub.catmash.db.user.UserNotFoundException;
 import aarkoub.catmash.domain.cat.Cat;
 import aarkoub.catmash.domain.cat.service.ICatService;
 import aarkoub.catmash.domain.catmatch.CatMatch;
 import aarkoub.catmash.domain.catmatch.service.ICatMatchService;
 import aarkoub.catmash.domain.user.service.IUserService;
+import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -67,18 +72,26 @@ public class API {
 
     @GetMapping("/cats/match")
     @ResponseBody
-    CatMatch generateCatMatch(HttpServletRequest request) throws UserNotFoundException {
-        return catMatchService.generateMatch(getUserId(request));
+    CatMatch generateCatMatch(HttpServletRequest request, HttpServletResponse response) {
+        UUID userId = getUserId(request);
+        try {
+            return catMatchService.generateMatch(userId);
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @PostMapping(path="/cats/match/vote", consumes = "application/json;charset=UTF-8")
     CatMatch voteForCat( HttpServletRequest request, @RequestBody Map<String, Long> catIds){
+        UUID userId = getUserId(request);
         try {
-           return catMatchService.changeVote(getUserId(request), catIds.get("catId1"), catIds.get("catId2"),
+           return catMatchService.changeVote(userId, catIds.get("catId1"), catIds.get("catId2"),
                    catIds.get("catIdVoted"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        } catch (CatMatchNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "CatMatch of id= {"+userId+", "
+                    +catIds.get("catId1")+", "+catIds.get("catId2")+"}not found");
+        } catch (CatNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -88,7 +101,7 @@ public class API {
         response.addCookie(new Cookie("userId", userService.retrieveUser(getUserId(request)).getId().toString()));
     }
 
-    @RequestMapping("/load")
+    @RequestMapping("/loadCatsFromRessources")
     void loadData() throws IOException {
         catDataLoader.importCatsFromJSONToDatabase("src/main/resources/db/importation/cats.json");
     }
