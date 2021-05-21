@@ -9,7 +9,6 @@ import aarkoub.catmash.domain.cat.service.ICatService;
 import aarkoub.catmash.domain.catmatch.CatMatch;
 import aarkoub.catmash.domain.catmatch.service.ICatMatchService;
 import aarkoub.catmash.domain.user.service.IUserService;
-import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -81,7 +80,7 @@ public class API {
         }
     }
 
-    @PostMapping(path="/cats/match/vote", consumes = "application/json;charset=UTF-8")
+    @PostMapping(path="/cats/match/vote", consumes = "application/json", produces = "application/json")
     CatMatch voteForCat( HttpServletRequest request, @RequestBody Map<String, Long> catIds){
         UUID userId = getUserId(request);
         try {
