@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         public void doFilter (ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
             HttpServletResponse resp = (HttpServletResponse) response;
-            resp.setHeader("Set-Cookie", "HttpOnly; SameSite=none");
+            resp.setHeader("Set-Cookie", "HttpOnly; SameSite=none; Secure=true");
                     chain.doFilter(request, response);
         }
     }
