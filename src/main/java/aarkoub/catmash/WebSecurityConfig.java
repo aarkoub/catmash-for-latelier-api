@@ -19,6 +19,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             cors.setAllowedMethods(List.of("GET","POST"));
             cors.setAllowedHeaders(List.of("*"));
             return cors;
-        }).and().csrf().disable();;
+        }).and().csrf().disable();
     }
 }

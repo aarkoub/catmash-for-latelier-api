@@ -99,7 +99,9 @@ public class API {
     @GetMapping("/user")
     @ResponseBody
     void retrieveUser(HttpServletRequest request, HttpServletResponse response){
-        response.addCookie(new Cookie("userId", userService.retrieveUser(getUserId(request)).getId().toString()));
+        Cookie cookie = new Cookie("userId", userService.retrieveUser(getUserId(request)).getId().toString());
+        cookie.setSecure(true);
+        response.addCookie(cookie);
     }
 
     @RequestMapping("/loadCatsFromResources")
