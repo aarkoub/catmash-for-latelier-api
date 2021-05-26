@@ -33,11 +33,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             boolean firstHeader = true;
             for (String header : headers) { // there can be multiple Set-Cookie attributes
                 if (firstHeader) {
-                    resp.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=None"));
+                    resp.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s; %s", header, "SameSite=None", "Secure=true"));
                     firstHeader = false;
                     continue;
                 }
-                resp.addHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=None"));
+                resp.addHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s; %s", header, "SameSite=None",  "Secure=true"));
             }
         }
     }
