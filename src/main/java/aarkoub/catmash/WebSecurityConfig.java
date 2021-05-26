@@ -1,5 +1,6 @@
 package aarkoub.catmash;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,6 +14,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 @EnableWebSecurity
@@ -27,6 +29,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             HttpServletResponse resp = (HttpServletResponse) response;
             resp.setHeader("Set-Cookie", "SameSite=None; Secure=true");
                     chain.doFilter(request, response);
+            Collection<String> headers = resp.getHeaders(HttpHeaders.SET_COOKIE);
+            boolean firstHeader = true;
+            for (String header : headers) { // there can be multiple Set-Cookie attributes
+                if (firstHeader) {
+                    resp.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=None"));
+                    firstHeader = false;
+                    continue;
+                }
+                resp.addHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=None"));
+            }
         }
     }
 
